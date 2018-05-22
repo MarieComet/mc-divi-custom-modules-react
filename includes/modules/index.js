@@ -1,3 +1,7 @@
-import HelloWorld from './HelloWorld/HelloWorld';
+import MCFlipBoxParent from './MCFlipBoxParent/MCFlipBoxParent';
+import MCFlipBoxChild from './MCFlipBoxChild/MCFlipBoxChild';
 
-export default [HelloWorld];
+export default [
+	MCFlipBoxParent,
+  	MCFlipBoxChild
+];
