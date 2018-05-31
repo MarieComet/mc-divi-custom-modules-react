@@ -1,6 +1,6 @@
 // External Dependencies
 import React, { Component, Fragment } from 'react';
-
+import $ from 'jquery';
 
 class MCFlipBoxChild extends Component {
 
@@ -107,7 +107,7 @@ class MCFlipBoxChild extends Component {
         );
         break;
       case 'upload_image':
-        output = <img src={value} alt=''/>;
+        output = <span className="et-pb-icon"><img src={value} alt=''/></span>;
         break;
       default:
         output = value;
@@ -164,25 +164,108 @@ class MCFlipBoxChild extends Component {
     return additionalCss;
   }
 
+  resizeFlipBox() {
+    console.log('resize');
+    // Get an array of all element heights
+    var elementHeights = null;
+    $( '.et_pb_row' ).each( function() {
+
+      var flixboxModulesChilds = $( this ).find( '.mc_et_pb_flipbox_child > div:first-child' );
+
+      var elementHeights = $( flixboxModulesChilds ).map( function() {
+        return $( this ).outerHeight();
+      }).get();
+
+      var flixboxModules = $( this ).find( '.mc_et_pb_flipbox_child, .mc_et_pb_flipbox' );
+
+      // Math.max takes a variable number of arguments
+      // `apply` is equivalent to passing each height as an argument
+      var maxHeight = Math.max.apply( null, elementHeights );
+      // Set each height to the max height
+      $( flixboxModules ).height( maxHeight );
+    });
+  }
+
+  /*onItemClick( e ) {
+
+    e.preventDefault();
+    console.log('clicked');
+    var button_clicked = e.currentTarget;
+    var parent = $(  button_clicked ).parents( '.mc_et_pb_flipbox_child' );
+    console.log(parent);
+    $( parent ).addClass( 'hidden' );
+    $( parent ).next( '.mc_et_pb_flipbox_child' ).addClass( 'visible' );
+    $('.rotate_button').not(  button_clicked ).parents( '.mc_et_pb_flipbox_child.visible' ).removeClass('visible');
+
+  }*/
+
   /**
    * Module render in VB
    * Basically MCFliBoxParent->render() equivalent in JSX
    */
   render() {
 
-    const CustomTag = `${ !!( this.props.title_level ) ? this.props.title_level : 'h1' }`;
+    const utils = window.ET_Builder.API.Utils;
+
+    var currentEditing = $( '*[data-address="'+this.props.moduleInfo.address+'"]' );
+
+    $( '.mc_et_pb_flipbox_child' ).removeClass( 'hidden' );
+
+    $( currentEditing ).siblings( '.mc_et_pb_flipbox_child' ).removeClass( 'visible' );
+    $( currentEditing ).siblings( '.mc_et_pb_flipbox_child' ).addClass( 'hidden' );
+    $( currentEditing ).addClass( 'visible' );
+
+    this.resizeFlipBox();
+
+    const CustomTag = `${ !!( this.props.title_level ) ? this.props.title_level : 'h2' }`;
+
+    const useShadow  = 'on' === this.props.title_shadow ? true : false;
+
+    const titleClass = {
+      'flipbox-title': true,
+      'title_shadow': useShadow
+    }
 
     return (
       <Fragment>
-        <div className="flipbox-header">
-          {this._renderProp(this.props.font_icon, 'font_icon', 'font_icon', this.props.moduleInfo.type)}
+        <div className="flipbox-top">
+          { ( ( this.props.use_icon !== 'on' && this.props.image ) || this.props.use_icon !== 'off' ) && (
+            <div className="flipbox-header">
+              <div>
+                { this.props.use_icon !== 'off' && (
+                  this._renderProp(this.props.font_icon, 'font_icon', 'font_icon', this.props.moduleInfo.type)
+                ) }
+              </div>
+              <div>
+                { this.props.use_icon !== 'on' && this.props.image && (
+                  this._renderProp(this.props.image, 'image', 'upload_image', this.props.moduleInfo.type)
+                ) }
+              </div>
+            </div>
+          ) }
+          { !! this.props.title && (
+            <CustomTag className={ utils.classnames(titleClass) }>{this.props.title}</CustomTag>
+          ) }
+          { !! this.props.content && (
+            <div className="flipbox-content">{this.props.content()}</div>
+          ) }
         </div>
-        <CustomTag className="flipbox-title">{this.props.title}</CustomTag>
-        <div className="flipbox-content">{this.props.content()}</div>
-        {this._renderButton()}
+        <div className="button_bottom">
+          { this._renderButton() }
+        </div>
+        { 'on' === this.props.use_flip_icon && (
+          <div className="flipbox-bottom">
+            <a className="rotate_button" href="#"></a>
+          </div>
+        ) }
       </Fragment>
     );
   }
+
+  componentDidUpdate(lastProps, lastStates) {
+    this.resizeFlipBox();
+  }
+
 }
 
 export default MCFlipBoxChild;

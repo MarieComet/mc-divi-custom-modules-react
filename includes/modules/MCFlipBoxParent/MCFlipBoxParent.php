@@ -76,6 +76,48 @@ class MC_FlipBox_Parent extends ET_Builder_Module {
 	}*/
 
 	/**
+	 * Module's advanced fields configuration
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+	function get_advanced_fields_config() {
+		return array(
+			'max_width' => array(
+				'use_max_width'        => true, // default
+				'use_module_alignment' => true, // default
+				'options' => array(
+					'max_width' => array(
+						'default' => '100%',
+						'range_settings'  => array(
+							'min'  => '0',
+							'max'  => '100',
+							'step' => '1',
+						),
+					),
+					'max_width_tablet' => array(
+						'default' => '100%',
+						'range_settings'  => array(
+							'min'  => '0',
+							'max'  => '100',
+							'step' => '1',
+						),
+					),
+					'max_width_phone' => array(
+						'default' => '100%',
+						'range_settings'  => array(
+							'min'  => '0',
+							'max'  => '100',
+							'step' => '1',
+						),
+					),
+				),
+			),
+		);
+	}
+
+	/**
 	 * Render module output
 	 *
 	 * @since 1.0.0
@@ -87,19 +129,20 @@ class MC_FlipBox_Parent extends ET_Builder_Module {
 	 * @return string module's rendered output
 	 */
 	function render( $attrs, $content = null, $render_slug ) {
+		error_log(print_r($this, true));
 
 		// Render module content
 		$output = sprintf(
 			'%1$s',
-			et_sanitized_previously( $this->content )
+			$this->content
 		);
 
-		//return $output;
+		return $output;
 
 		// Render wrapper
 		// 3rd party module with no full VB support has to wrap its render output with $this->_render_module_wrapper().
 		// This method will automatically add module attributes and proper structure for parallax image/video background
-		return $this->_render_module_wrapper( $output, $render_slug );
+		//return $this->_render_module_wrapper( $output, $render_slug );
 	}
 }
 

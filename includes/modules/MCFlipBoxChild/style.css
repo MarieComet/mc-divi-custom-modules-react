@@ -3,7 +3,9 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 	min-height: 1px;
-	min-height: 200px;
+    min-height: 350px;
+	text-align: center;
+	overflow: hidden !important;
 }
 .mc_et_pb_flipbox .et_pb_module_inner {
 	position: initial;
@@ -17,48 +19,113 @@
 	height: 100%;
 }*/
 .mc_et_pb_flipbox div.mc_et_pb_flipbox_child {
-	-webkit-transition: opacity 1s;
-	transition: opacity 1s;
+	-webkit-transition: all 1s;
+	transition: all 1s;
+}
+.mc_et_pb_flipbox div.mc_et_pb_flipbox_child > div:first-child {
+	-webkit-transition: all .8s;
+	transition: all .8s;
+}
+.mc_et_pb_flipbox div.mc_et_pb_flipbox_child {
 	position: absolute;
 	width: 100%;
-	padding: 0;
-	left: 0;
 	top: 0;
 	bottom: 0;
-	right: 0;
     height: 100%; 
     margin: auto;
     margin-bottom: 0 !important;
 }
-.mc_et_pb_flipbox div.mc_et_pb_flipbox_child .et_pb_module_inner {
+.mc_et_pb_flipbox div.mc_et_pb_flipbox_child .et_pb_module_inner, .mc_et_pb_flipbox div.mc_et_pb_flipbox_child > div:first-child {
 	display: block;
-	position: relative;
 	height: auto;
-	padding: 0 2rem 2rem 2rem;
+	padding: 0 2rem 2rem;
+	min-height: 100%;
 }
-.mc_et_pb_flipbox div .mc_et_pb_flipbox_child:nth-child(even) {
+.et_fb_preview_container .mc_et_pb_flipbox:hover div .mc_et_pb_flipbox_child:nth-child(even), .et_fb_preview_container .mc_et_pb_flipbox:hover div .mc_et_pb_flipbox_child:nth-child(odd):only-child > div:first-child {
+    right: 0!important;
+    opacity: 1 !important;
+}
+.mc_et_pb_flipbox div .mc_et_pb_flipbox_child:nth-child(even), .et_fb_preview_container .mc_et_pb_flipbox:hover div .mc_et_pb_flipbox_child:nth-child(odd) > div:first-child {
+	right: -100%;
 	opacity: 0;
 }
-.mc_et_pb_flipbox:hover div .mc_et_pb_flipbox_child:nth-child(even) {
-	opacity: 1;
-}
-.mc_et_pb_flipbox div.mc_et_pb_flipbox_child:nth-child(even) .et_pb_module_inner {
+/*.mc_et_pb_flipbox .mc_et_pb_flipbox_child:nth-child(even) .et_pb_module_inner, .mc_et_pb_flipbox .mc_et_pb_flipbox_child:nth-child(even) > div:first-child {
 	top: 50%;
 	transform: translateY(-50%);
+}*/
+.mc_et_pb_flipbox .visible, .mc_et_pb_flipbox .visible > div:first-child {
+    right: 0!important;
+    opacity: 1 !important;
+}
+.mc_et_pb_flipbox .hidden > div:first-child {
+	right: -100%;
+	opacity: 0;
 }
 .mc_et_pb_flipbox .flipbox-header {
     text-align: center;
     margin-bottom: 1.5rem;
 }
-.mc_et_pb_flipbox .flipbox-header span.et-pb-icon {
+
+.flipbox-title {
+    padding: 1.5rem 0;
+    position: relative;
+    z-index: 2;
+}
+.flipbox-title.title_shadow:before {
+    content: '';
+    position: absolute;
+    top: -150%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border-radius: 50%;
+    width: 100%;
+    height: 400%;
+    z-index: -1;
+    background: -moz-radial-gradient(center, ellipse cover, rgba(46,68,121,0.4) 0%, rgba(138,150,180,0) 44%, rgba(174,182,203,0) 61%, rgba(255,255,255,0) 100%); /* FF3.6-15 */
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(46,68,121,0.4) 0%,rgba(138,150,180,0) 44%,rgba(174,182,203,0) 61%,rgba(255,255,255,0) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: radial-gradient(ellipse at center, rgba(46,68,121,0.4) 0%,rgba(138,150,180,0) 44%,rgba(174,182,203,0) 61%,rgba(255,255,255,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#662e4479', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+.mc_et_pb_flipbox .flipbox-top {
+    margin-bottom: 3rem;
+}
+.button_bottom {
+    position: absolute;
+    bottom: 2rem;
+    width: 100%;
+}
+.mc_et_pb_flipbox .flipbox-bottom {
+	margin: auto;
+	margin-bottom: 0;
+	position: absolute;
+	bottom: 2rem;
+	left: 0;
+	right: 0;
+}
+.mc_et_pb_flipbox .rotate_button {
+	content: url('turn.png');
+	background-color: transparent;
+	border-radius: 25px;
+	padding: 3px 20px;
+	max-width: 65px;
+	border: 3px solid #fff;
+	margin: auto;
+	display: block;
+}
+.mc_et_pb_flipbox .flipbox-header .et-pb-icon {
+	display: inline-block;
     background-color: #ffffff;
     font-size: 30px;
     -webkit-clip-path: polygon(50% 100%, 0 0, 100% 0);
     clip-path: polygon(50% 100%, 0 0, 100% 0);
-    width: 120px;
-	padding: 5px 5px 10px 5px;
+    width: 140px;
+    padding: 10px 10px 20px;
     color: black;
 }
+.mc_et_pb_flipbox .flipbox-header .et-pb-icon img {
+	max-width: 35px;
+}
 .mc_et_pb_flipbox div.mc_et_pb_flipbox_child .flipbox-content {
-    padding: 1rem 2rem;
+    padding: 1rem 0;
 }

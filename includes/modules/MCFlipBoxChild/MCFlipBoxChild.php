@@ -22,6 +22,12 @@ class MC_FlipBox_Child extends ET_Builder_Module {
 	// Full Visual Builder support
 	public $vb_support = 'on';
 
+	public $debug_module = true;
+
+	public function remove_from_local_storage() {
+		global $debug_module; 
+		echo "<script>localStorage.removeItem('et_pb_templates_".esc_attr($this->slug)."');</script>";
+	}
 	/**
 	 * Module properties initialization
 	 *
@@ -30,6 +36,17 @@ class MC_FlipBox_Child extends ET_Builder_Module {
 	 * @todo Remove $this->advanced_options['background'] once https://github.com/elegantthemes/Divi/issues/6913 has been addressed
 	 */
 	function init() {
+
+		// à retirer en prod
+		$debug_module = true;
+
+		if (is_admin()) {
+			// Clear module from cache if necessary
+			if ($debug_module) { 
+				add_action('admin_head', array( $this, 'remove_from_local_storage' ) );
+			}
+		}
+		// à retirer en prod
 
 		// Module name
 		$this->name             = esc_html__( 'Facette de la flip box', 'mc_divi_custom_modules' );
@@ -74,6 +91,18 @@ class MC_FlipBox_Child extends ET_Builder_Module {
 				'type'            => 'tiny_mce',
 				'option_category' => 'basic_option',
 				'description'     => esc_html__( 'Le texte saisi ici s\'affichera comme contenu de la facette', 'mc_divi_custom_modules' ),
+				'toggle_slug'     => 'main_content',
+			),
+			'use_flip_icon' => array(
+				'label'           => esc_html__( 'Afficher l\'icône de rotation', 'mc_divi_custom_modules' ),
+				'type'            => 'yes_no_button',
+				'option_category' => 'basic_option',
+				'options'         => array(
+					'off' => esc_html__( 'Non', 'mc_divi_custom_modules' ),
+					'on'  => esc_html__( 'Oui', 'mc_divi_custom_modules' ),
+				),
+				'description' => esc_html__( 'Choisissez si vous souhaitez afficher une icône de rotation', 'mc_divi_custom_modules' ),
+				'default_on_front'=> 'off',
 				'toggle_slug'     => 'main_content',
 			),
 			'button_text' => array(
@@ -139,6 +168,27 @@ class MC_FlipBox_Child extends ET_Builder_Module {
 				'description'        => esc_html__( 'Téléversez une image à afficher en entête.', 'mc_divi_custom_modules' ),
 				'toggle_slug'        => 'image',
 			),
+			'module_alignment' => array(
+				'label'           => esc_html__( 'Module Alignment', 'et_builder' ),
+				'type'            => 'text_align',
+				'option_category' => 'layout',
+				'options'         => et_builder_get_text_orientation_options( array( 'justified' ) ),
+				'tab_slug'        => 'advanced',
+				'toggle_slug'	  => 'width',
+			),
+			'title_shadow' => array(
+				'label'           => esc_html__( 'Afficher l\'ombre du titre', 'mc_divi_custom_modules' ),
+				'type'            => 'yes_no_button',
+				'option_category' => 'basic_option',
+				'options'         => array(
+					'off' => esc_html__( 'Non', 'mc_divi_custom_modules' ),
+					'on'  => esc_html__( 'Oui', 'mc_divi_custom_modules' ),
+				),
+				'description' => esc_html__( 'Choisissez si vous souhaitez afficher l\'ombre du titre', 'mc_divi_custom_modules' ),
+				'default_on_front'=> 'off',
+				'tab_slug'		  => 'advanced',
+				'toggle_slug'     => 'title',
+			),
 		);
 	}
 
@@ -159,11 +209,14 @@ class MC_FlipBox_Child extends ET_Builder_Module {
 						'font' => "{$this->main_css_element} .flipbox-title",
 						'color' => "{$this->main_css_element} .flipbox-title",
 						'plugin_main' => "{$this->main_css_element} .flipbox-title, {$this->main_css_element} .flipbox-title",
+						'text_align' => "{$this->main_css_element} .flipbox-title",
 						'important' => 'all',
 					),
+					'use_alignment' => true,
 					'header_level' => array(
 						'default' => 'h2',
 					),
+					'hide_text_shadow' => true,
 				),
 				'content'   => array(
 					'label'    => esc_html__( 'Contenu', 'mc_divi_custom_modules' ),
@@ -173,9 +226,51 @@ class MC_FlipBox_Child extends ET_Builder_Module {
 						'line_height' => "{$this->main_css_element} .flipbox-content p",
 						'plugin_main' => "{$this->main_css_element}, %%order_class%%.flipbox-content p",
 					),
+					'hide_text_shadow' => true,
+				),
+			),
+			'button'                => array(
+				'button' => array(
+					'label' => esc_html__( 'Button', 'et_builder' ),
+					'css' => array(
+						'plugin_main' => "{$this->main_css_element} .et_pb_button",
+						'alignment'   => "{$this->main_css_element} .et_pb_button_wrapper",
+					),
+					'options' => array(
+						'alignement'  => array(
+							'default'          => 'center',
+						),
+					),
+					'defaults' => array(
+						'alignement'      => 'center',
+					),
+					'use_alignment' => true,
+					'box_shadow'    => false,
+				),
+			),
+			'margin_padding' => array(
+				'css' => array(
+					'margin'  => "{$this->main_css_element} > div:first-child",
+					'padding' => "{$this->main_css_element} > div:first-child",
+					'important' => 'all',
+				),
+			),
+			'max_width' => array(
+				'use_max_width'        => true, // default
+				'use_module_alignment' => true, // default
+				'options' => array(
+					'max_width' => array(
+						'default' => '100%',
+						'range_settings'  => array(
+							'min'  => '0',
+							'max'  => '100',
+							'step' => '1',
+						),
+					),
 				),
 			),
 			'text' => false,
+			'hide_text_shadow' => true,
 			'use_background_layout' => false,
 			'filters'			=> false,
 		);
@@ -197,15 +292,14 @@ class MC_FlipBox_Child extends ET_Builder_Module {
 		$image = $this->props['image'];
 		$use_icon = $this->props['use_icon'];
 		$font_icon = $this->props['font_icon'];
-		$header_level          = $this->props['header_level'];
+		$title_level          = $this->props['title_level'];
 
 		if ( 'off' === $use_icon ) {
 			$image = ( '' !== trim( $image ) ) ? sprintf(
-				'<img src="%1$s" />',
+				'<span class="et-pb-icon"><img src="%1$s" /></span>',
 				esc_attr( $image )
 			) : '';
 		} else {
-
 			$image = ( '' !== $font_icon ) ? sprintf(
 				'<span class="et-pb-icon">%1$s</span>',
 				esc_attr( et_pb_process_font_icon( $font_icon ) )
@@ -213,6 +307,8 @@ class MC_FlipBox_Child extends ET_Builder_Module {
 		}
 		// Module specific props added on $this->get_fields()
 		$title                 = $this->props['title'];
+		$use_flip_icon         = $this->props['use_flip_icon'];
+		$title_shadow 		   = $this->props['title_shadow'];
 		$button_text           = $this->props['button_text'];
 		$button_url            = $this->props['button_url'];
 		$button_url_new_window = $this->props['button_url_new_window'];
@@ -232,50 +328,37 @@ class MC_FlipBox_Child extends ET_Builder_Module {
 			'custom_icon'      => $button_use_icon,
 		) );
 
-		/*if ( '' !== $this->props['module_text_align'] ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%% .flipbox-content',
-				'declaration' => sprintf(
-					'text-align: %1$s;',
-					esc_html( $this->props['module_text_align'] )
-				),
-			) );
+		$title_class = 'flipbox-title et_pb_module_header';
+		if ( 'on' === $title_shadow ) {
+			$title_class .= ' title_shadow';
 		}
-
-		if ( '' !== $this->props['text_orientation'] ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%% .flipbox-title',
-				'declaration' => sprintf(
-					'text-align: %1$s;',
-					esc_html( $this->props['text_orientation'] )
-				),
-			) );
-		}
-
-		if ( '' !== $this->props['title_color'] ) {
-			ET_Builder_Element::set_style( $render_slug, array(
-				'selector'    => '%%order_class%% .flipbox-title',
-				'declaration' => sprintf(
-					'color: %1$s;',
-					esc_html( $this->props['title_color'] )
-				),
-			) );
-		}*/
 
 		if ( '' !== $title ) {
-			$title = sprintf( '<%1$s class="flipbox-title et_pb_module_header">%2$s</%1$s>', et_pb_process_header_level( $header_level, 'h2' ), $title );
+			$title = sprintf( '<%1$s class="%3$s">%2$s</%1$s>', et_pb_process_header_level( $title_level, 'h2' ), $title, $title_class );
+		}
+
+		if ( 'on' === $use_flip_icon ) {
+			$flip_icon = '<div class="et_pb_button rotate_button"></div>';
+		} else {
+			$flip_icon = '';
 		}
 
 		// Render module content
 		$output = sprintf(
-			'<div class="flipbox-header">%1$s</div>
+			'<div class="flipbox-top">
+			<div class="flipbox-header">%1$s</div>
 			%2$s
 			<div class="flipbox-content"><p>%3$s</p></div>
-			%4$s',
+			</div>
+			<div class="button_bottom">
+				%4$s
+			</div>
+			<div class="flipbox-bottom">%5$s</div>',
 			$image,
 			$title,
 			et_sanitized_previously( $this->content ),
-			et_sanitized_previously( $button )
+			et_sanitized_previously( $button ),
+			$flip_icon
 		);
 
 		return $output;
