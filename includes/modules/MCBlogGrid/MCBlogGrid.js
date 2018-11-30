@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import './style.css';
 
 
-class BlogGrid extends Component {
+class MCBlogGrid extends Component {
 
   static slug = 'mdvcm_blog_grid';
 
@@ -16,4 +16,4 @@ class BlogGrid extends Component {
   }
 }
 
-export default BlogGrid;
+export default MCBlogGrid;
