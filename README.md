@@ -6,13 +6,19 @@ Useful for learning how to create parent/child module.
 
 Preview :
 
+![Flip Box module screenshot](https://github.com/MarieComet/mc-divi-custom-modules-react/blob/master/screenshots/flip-box.png)
+
+
 ## Blog Grid
 A module that display blog posts in a different appearance than the Divi native module.
 Useful for learning how to display dynamic content in the visual builder.
 
-:warning: This module add a new image size ('blog-grid'), you'll need to regenerate your existing posts thumbnails (serach "Regenerate thumbnails" in the plugins repository).
+:warning: This module add a new image size ('blog-grid'), you'll need to regenerate your existing posts thumbnails (search "Regenerate thumbnails" in the plugins repository).
 
 Preview :
+
+![Blog Grid module screenshot](https://github.com/MarieComet/mc-divi-custom-modules-react/blob/master/screenshots/blog-grid.png)
+
 
 # Install in WordPress
 Please use the ZIP archive (production ready) inside the plugin folder.
