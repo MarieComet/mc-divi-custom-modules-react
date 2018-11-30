@@ -3,7 +3,7 @@
 Plugin Name: Mc Divi Custom Modules React
 Plugin URI:  
 Description: Add some custom modules to Divi Builder
-Version:     1.0.0
+Version:     1.0.1
 Author:      Marie Comet
 Author URI:  https://mariecomet.fr
 License:     GPL2

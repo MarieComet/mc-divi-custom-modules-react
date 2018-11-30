@@ -1,3 +1,27 @@
+## Some custom modules for the Divi Builder
+
+# Flip Box
+A module for creating flip box effect (recto/verso).
+Useful for learning how to create parent/child module.
+
+Preview :
+
+# Blog Grid
+A module that display blog posts in a different appearance than the Divi native module.
+Useful for learning how to display dynamic content in the visual builder.
+:warning: This module add a new image size ('blog-grid'), you'll need to regenerate your existing posts thumbnails (serach "Regenerate thumbnails" in the plugins repository).
+
+Preview :
+
+## Install
+ZIP archive (production ready) inside the plugin folder.
+
+
+## Developping
+
+`npm install` Install node modules
+Officials instructions below :
+
 This project was bootstrapped with [Create Divi Extension](https://github.com/elegantthemes/create-divi-extension).
 
 Below you will find some information on how to perform common tasks. You can find the most recent version of this guide [here](https://github.com/elegantthemes/create-divi-extension/blob/master/packages/divi-scripts/template/README.md).

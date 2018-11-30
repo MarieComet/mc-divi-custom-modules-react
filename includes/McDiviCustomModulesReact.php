@@ -40,6 +40,12 @@ class MDCM_McDiviCustomModulesReact extends DiviExtension {
 		$this->plugin_dir_url = plugin_dir_url( $this->plugin_dir );
 
 		parent::__construct( $name, $args );
+
+		add_action( 'after_setup_theme', array( $this, 'mdcm_register_img_size' ) );
+	}
+
+	public function mdcm_register_img_size() {
+		add_image_size( 'blog-grid', 800, 560, true );
 	}
 }
 
