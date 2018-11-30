@@ -25,7 +25,7 @@ class MC_FlipBox_Parent extends ET_Builder_Module {
 	/*function get_main_tabs() {
 		$tabs = array(
 			'general'    => esc_html__( 'Face', 'et_builder' ),
-			'back'  => esc_html__( 'Arrière', 'mc_divi_custom_modules' ),
+			'back'  => esc_html__( 'Arrière', 'mdcm-mc-divi-custom-modules-react' ),
 			'advanced'   => esc_html__( 'Design', 'et_builder' ),
 			'custom_css' => esc_html__( 'Advanced', 'et_builder' ),
 		);
@@ -35,21 +35,21 @@ class MC_FlipBox_Parent extends ET_Builder_Module {
 
 	function init() {
 		// Module name
-		$this->name = esc_html__( 'Flip Box', 'mc_divi_custom_modules' );
+		$this->name = esc_html__( 'Flip Box', 'mdcm-mc-divi-custom-modules-react' );
 
 		// Module Icon
 		// Load customized svg icon and use it on builder as module icon. If you don't have svg icon, you can use
 		// $this->icon for using etbuilder font-icon. (See CustomCta / DICM_CTA class)
 		$this->icon_path =  plugin_dir_path( __FILE__ ) . 'icon.svg';
 
-		$this->child_item_text	= esc_html__( 'Ajouter une facette (une pour la face, une pour l\'arrière)', 'mc_divi_custom_modules' );
+		$this->child_item_text	= esc_html__( 'Ajouter une facette (une pour la face, une pour l\'arrière)', 'mdcm-mc-divi-custom-modules-react' );
 
 		//$this->main_tabs = $this->get_main_tabs();
 		// Toggle settings
 		/*$this->settings_modal_toggles  = array(
 			'general'  => array(
 				'toggles' => array(
-					'main_content' => esc_html__( 'Texte avant', 'mc_divi_custom_modules' ),
+					'main_content' => esc_html__( 'Texte avant', 'mdcm-mc-divi-custom-modules-react' ),
 				),
 			),
 		);*/
@@ -65,10 +65,10 @@ class MC_FlipBox_Parent extends ET_Builder_Module {
 	/*function get_fields() {
 		return array(
 			'title' => array(
-				'label'           => esc_html__( 'Title', 'mc_divi_custom_modules' ),
+				'label'           => esc_html__( 'Title', 'mdcm-mc-divi-custom-modules-react' ),
 				'type'            => 'text',
 				'option_category' => 'basic_option',
-				'description'     => esc_html__( 'Text entered here will appear as title.', 'mc_divi_custom_modules' ),
+				'description'     => esc_html__( 'Text entered here will appear as title.', 'mdcm-mc-divi-custom-modules-react' ),
 				'toggle_slug'     => 'main_content',
 				'tab_slug'        => 'general',
 			)
@@ -129,7 +129,6 @@ class MC_FlipBox_Parent extends ET_Builder_Module {
 	 * @return string module's rendered output
 	 */
 	function render( $attrs, $content = null, $render_slug ) {
-		error_log(print_r($this, true));
 
 		// Render module content
 		$output = sprintf(

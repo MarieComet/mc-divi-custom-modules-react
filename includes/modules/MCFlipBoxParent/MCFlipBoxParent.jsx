@@ -8,7 +8,6 @@ class MCFlipBoxParent extends Component {
 
   resizeFlipBox() {
 
-    console.log('resize');
     // Get an array of all element heights
     var elementHeights = null;
     $( '.et_pb_row' ).each( function() {

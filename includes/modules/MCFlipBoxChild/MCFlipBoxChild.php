@@ -22,12 +22,15 @@ class MC_FlipBox_Child extends ET_Builder_Module {
 	// Full Visual Builder support
 	public $vb_support = 'on';
 
-	public $debug_module = true;
+	// uncomment to disable cache builder
+	/*public $debug_module = true;
 
 	public function remove_from_local_storage() {
 		global $debug_module; 
 		echo "<script>localStorage.removeItem('et_pb_templates_".esc_attr($this->slug)."');</script>";
-	}
+	}*/
+	// uncomment to disable cache builder
+
 	/**
 	 * Module properties initialization
 	 *
@@ -38,31 +41,33 @@ class MC_FlipBox_Child extends ET_Builder_Module {
 	function init() {
 
 		// à retirer en prod
-		$debug_module = true;
+		// uncomment to disable cache builder
+		/*$debug_module = true;
 
 		if (is_admin()) {
 			// Clear module from cache if necessary
 			if ($debug_module) { 
 				add_action('admin_head', array( $this, 'remove_from_local_storage' ) );
 			}
-		}
+		}*/
 		// à retirer en prod
+		// uncomment to disable cache builder
 
 		// Module name
-		$this->name             = esc_html__( 'Facette de la flip box', 'mc_divi_custom_modules' );
+		$this->name             = esc_html__( 'Facette de la flip box', 'mdcm-mc-divi-custom-modules-react' );
 
 		$this->main_css_element = '%%order_class%%.mc_et_pb_flipbox_child';
 
 		// Module item's modal title
-		$this->settings_text = esc_html__( 'Paramètres de la facette', 'mc_divi_custom_modules' );
+		$this->settings_text = esc_html__( 'Paramètres de la facette', 'mdcm-mc-divi-custom-modules-react' );
 
 		// Toggle settings
 		$this->settings_modal_toggles  = array(
 			'general'  => array(
 				'toggles' => array(
-					'main_content' => esc_html__( 'Texte', 'mc_divi_custom_modules' ),
-					'image'        => esc_html__( 'Image & Icône', 'mc_divi_custom_modules' ),
-					'button'       => esc_html__( 'Bouton', 'mc_divi_custom_modules' ),
+					'main_content' => esc_html__( 'Texte', 'mdcm-mc-divi-custom-modules-react' ),
+					'image'        => esc_html__( 'Image & Icône', 'mdcm-mc-divi-custom-modules-react' ),
+					'button'       => esc_html__( 'Bouton', 'mdcm-mc-divi-custom-modules-react' ),
 				),
 			),
 		);
@@ -80,92 +85,92 @@ class MC_FlipBox_Child extends ET_Builder_Module {
 	function get_fields() {
 		return array(
 			'title' => array(
-				'label'           => esc_html__( 'Titre', 'mc_divi_custom_modules' ),
+				'label'           => esc_html__( 'Titre', 'mdcm-mc-divi-custom-modules-react' ),
 				'type'            => 'text',
 				'option_category' => 'basic_option',
-				'description'     => esc_html__( 'Le texte saisi ici s\'affichera comme titre de la facette.', 'mc_divi_custom_modules' ),
+				'description'     => esc_html__( 'Le texte saisi ici s\'affichera comme titre de la facette.', 'mdcm-mc-divi-custom-modules-react' ),
 				'toggle_slug'     => 'main_content',
 			),
 			'content' => array(
-				'label'           => esc_html__( 'Contenu', 'mc_divi_custom_modules' ),
+				'label'           => esc_html__( 'Contenu', 'mdcm-mc-divi-custom-modules-react' ),
 				'type'            => 'tiny_mce',
 				'option_category' => 'basic_option',
-				'description'     => esc_html__( 'Le texte saisi ici s\'affichera comme contenu de la facette', 'mc_divi_custom_modules' ),
+				'description'     => esc_html__( 'Le texte saisi ici s\'affichera comme contenu de la facette', 'mdcm-mc-divi-custom-modules-react' ),
 				'toggle_slug'     => 'main_content',
 			),
 			'use_flip_icon' => array(
-				'label'           => esc_html__( 'Afficher l\'icône de rotation', 'mc_divi_custom_modules' ),
+				'label'           => esc_html__( 'Afficher l\'icône de rotation', 'mdcm-mc-divi-custom-modules-react' ),
 				'type'            => 'yes_no_button',
 				'option_category' => 'basic_option',
 				'options'         => array(
-					'off' => esc_html__( 'Non', 'mc_divi_custom_modules' ),
-					'on'  => esc_html__( 'Oui', 'mc_divi_custom_modules' ),
+					'off' => esc_html__( 'Non', 'mdcm-mc-divi-custom-modules-react' ),
+					'on'  => esc_html__( 'Oui', 'mdcm-mc-divi-custom-modules-react' ),
 				),
-				'description' => esc_html__( 'Choisissez si vous souhaitez afficher une icône de rotation', 'mc_divi_custom_modules' ),
+				'description' => esc_html__( 'Choisissez si vous souhaitez afficher une icône de rotation', 'mdcm-mc-divi-custom-modules-react' ),
 				'default_on_front'=> 'off',
 				'toggle_slug'     => 'main_content',
 			),
 			'button_text' => array(
-				'label'           => esc_html__( 'Texte du bouton', 'mc_divi_custom_modules' ),
+				'label'           => esc_html__( 'Texte du bouton', 'mdcm-mc-divi-custom-modules-react' ),
 				'type'            => 'text',
 				'option_category' => 'basic_option',
-				'description'     => esc_html__( 'Le texte du bouton.', 'mc_divi_custom_modules' ),
+				'description'     => esc_html__( 'Le texte du bouton.', 'mdcm-mc-divi-custom-modules-react' ),
 				'toggle_slug'     => 'button',
 			),
 			'button_url' => array(
-				'label'           => esc_html__( 'Button URL', 'mc_divi_custom_modules' ),
+				'label'           => esc_html__( 'Button URL', 'mdcm-mc-divi-custom-modules-react' ),
 				'type'            => 'text',
 				'option_category' => 'basic_option',
-				'description'     => esc_html__( 'L\'URL du bouton.', 'mc_divi_custom_modules' ),
+				'description'     => esc_html__( 'L\'URL du bouton.', 'mdcm-mc-divi-custom-modules-react' ),
 				'toggle_slug'     => 'button',
 			),
 			'button_url_new_window' => array(
 				'default'         => 'off',
 				'default_on_front'=> true,
-				'label'           => esc_html__( 'Ouverture du lien', 'mc_divi_custom_modules' ),
+				'label'           => esc_html__( 'Ouverture du lien', 'mdcm-mc-divi-custom-modules-react' ),
 				'type'            => 'select',
 				'option_category' => 'configuration',
 				'options'         => array(
-					'off' => esc_html__( 'Dans la même fenêtre', 'mc_divi_custom_modules' ),
-					'on'  => esc_html__( 'Dans un nouvel onglet', 'mc_divi_custom_modules' ),
+					'off' => esc_html__( 'Dans la même fenêtre', 'mdcm-mc-divi-custom-modules-react' ),
+					'on'  => esc_html__( 'Dans un nouvel onglet', 'mdcm-mc-divi-custom-modules-react' ),
 				),
 				'toggle_slug'     => 'button',
-				'description'     => esc_html__( 'Choisissez si le lien s\'ouvre dans une nouvelle fenêtre ou non.', 'mc_divi_custom_modules' ),
+				'description'     => esc_html__( 'Choisissez si le lien s\'ouvre dans une nouvelle fenêtre ou non.', 'mdcm-mc-divi-custom-modules-react' ),
 			),
 			'use_icon' => array(
-				'label'           => esc_html__( 'Utiliser une îcône', 'mc_divi_custom_modules' ),
+				'label'           => esc_html__( 'Utiliser une îcône', 'mdcm-mc-divi-custom-modules-react' ),
 				'type'            => 'yes_no_button',
 				'option_category' => 'basic_option',
 				'options'         => array(
-					'off' => esc_html__( 'Non', 'mc_divi_custom_modules' ),
-					'on'  => esc_html__( 'Oui', 'mc_divi_custom_modules' ),
+					'off' => esc_html__( 'Non', 'mdcm-mc-divi-custom-modules-react' ),
+					'on'  => esc_html__( 'Oui', 'mdcm-mc-divi-custom-modules-react' ),
 				),
 				'toggle_slug'     => 'image',
 				'affects'         => array(
 					'font_icon',
 					'image',
 				),
-				'description' => esc_html__( 'Choisissez si vous souhaitez afficher une icône à afficher en entête.', 'mc_divi_custom_modules' ),
+				'description' => esc_html__( 'Choisissez si vous souhaitez afficher une icône à afficher en entête.', 'mdcm-mc-divi-custom-modules-react' ),
 				'default_on_front'=> 'off',
 			),
 			'font_icon' => array(
-				'label'               => esc_html__( 'Icône', 'mc_divi_custom_modules' ),
+				'label'               => esc_html__( 'Icône', 'mdcm-mc-divi-custom-modules-react' ),
 				'type'                => 'select_icon',
 				'option_category'     => 'basic_option',
 				'class'               => array( 'et-pb-font-icon' ),
 				'toggle_slug'         => 'image',
-				'description'         => esc_html__( 'Choisissez une icône.', 'mc_divi_custom_modules' ),
+				'description'         => esc_html__( 'Choisissez une icône.', 'mdcm-mc-divi-custom-modules-react' ),
 				'depends_show_if'     => 'on',
 			),
 			'image' => array(
-				'label'              => esc_html__( 'Image', 'mc_divi_custom_modules' ),
+				'label'              => esc_html__( 'Image', 'mdcm-mc-divi-custom-modules-react' ),
 				'type'               => 'upload',
 				'option_category'    => 'basic_option',
-				'upload_button_text' => esc_attr__( 'Upload an image', 'mc_divi_custom_modules' ),
-				'choose_text'        => esc_attr__( 'Choose an Image', 'mc_divi_custom_modules' ),
-				'update_text'        => esc_attr__( 'Set As Image', 'mc_divi_custom_modules' ),
+				'upload_button_text' => esc_attr__( 'Upload an image', 'mdcm-mc-divi-custom-modules-react' ),
+				'choose_text'        => esc_attr__( 'Choose an Image', 'mdcm-mc-divi-custom-modules-react' ),
+				'update_text'        => esc_attr__( 'Set As Image', 'mdcm-mc-divi-custom-modules-react' ),
 				'depends_show_if'    => 'off',
-				'description'        => esc_html__( 'Téléversez une image à afficher en entête.', 'mc_divi_custom_modules' ),
+				'description'        => esc_html__( 'Téléversez une image à afficher en entête.', 'mdcm-mc-divi-custom-modules-react' ),
 				'toggle_slug'        => 'image',
 			),
 			'module_alignment' => array(
@@ -177,14 +182,14 @@ class MC_FlipBox_Child extends ET_Builder_Module {
 				'toggle_slug'	  => 'width',
 			),
 			'title_shadow' => array(
-				'label'           => esc_html__( 'Afficher l\'ombre du titre', 'mc_divi_custom_modules' ),
+				'label'           => esc_html__( 'Afficher l\'ombre du titre', 'mdcm-mc-divi-custom-modules-react' ),
 				'type'            => 'yes_no_button',
 				'option_category' => 'basic_option',
 				'options'         => array(
-					'off' => esc_html__( 'Non', 'mc_divi_custom_modules' ),
-					'on'  => esc_html__( 'Oui', 'mc_divi_custom_modules' ),
+					'off' => esc_html__( 'Non', 'mdcm-mc-divi-custom-modules-react' ),
+					'on'  => esc_html__( 'Oui', 'mdcm-mc-divi-custom-modules-react' ),
 				),
-				'description' => esc_html__( 'Choisissez si vous souhaitez afficher l\'ombre du titre', 'mc_divi_custom_modules' ),
+				'description' => esc_html__( 'Choisissez si vous souhaitez afficher l\'ombre du titre', 'mdcm-mc-divi-custom-modules-react' ),
 				'default_on_front'=> 'off',
 				'tab_slug'		  => 'advanced',
 				'toggle_slug'     => 'title',
@@ -203,7 +208,7 @@ class MC_FlipBox_Child extends ET_Builder_Module {
 		return array(
 			'fonts'                 => array(
 				'title' => array(
-					'label'    => esc_html__( 'Titre', 'mc_divi_custom_modules' ),
+					'label'    => esc_html__( 'Titre', 'mdcm-mc-divi-custom-modules-react' ),
 					'css'      => array(
 						'main' => "{$this->main_css_element} .flipbox-title",
 						'font' => "{$this->main_css_element} .flipbox-title",
@@ -219,7 +224,7 @@ class MC_FlipBox_Child extends ET_Builder_Module {
 					'hide_text_shadow' => true,
 				),
 				'content'   => array(
-					'label'    => esc_html__( 'Contenu', 'mc_divi_custom_modules' ),
+					'label'    => esc_html__( 'Contenu', 'mdcm-mc-divi-custom-modules-react' ),
 					'css'      => array(
 						'main'        => "{$this->main_css_element} .flipbox-content p",
 						'color'       => "{$this->main_css_element}, {$this->main_css_element} .flipbox-content *",
@@ -356,8 +361,8 @@ class MC_FlipBox_Child extends ET_Builder_Module {
 			<div class="flipbox-bottom">%5$s</div>',
 			$image,
 			$title,
-			et_sanitized_previously( $this->content ),
-			et_sanitized_previously( $button ),
+			et_core_sanitized_previously( $this->content ),
+			et_core_sanitized_previously( $button ),
 			$flip_icon
 		);
 
